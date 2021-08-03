@@ -11,27 +11,31 @@ app.use(express.json());
 // Connect to database
 const db = mysql.createConnection(
     {
-      host: 'localhost',
-      // Your MySQL username,
-      user: 'root',
-      // Your MySQL password
-      password: '2Secure4Umysql$',
-      database: 'election'
+        host: 'localhost',
+        // Your MySQL username,
+        user: 'root',
+        // Your MySQL password
+        password: '2Secure4Umysql$',
+        database: 'election'
     },
     console.log('Connected to the election database.')
-  );
+);
+
+db.query(`SELECT * FROM candidates`, (err, rows) => {
+    console.log(rows);
+});
 
 app.get('/', (req, res) => {
     res.json({
-      message: 'Hello World'
+        message: 'Hello World'
     });
-  });
+});
 
 // Default response for any other request (Not Found)
 app.use((req, res) => {
     res.status(404).end();
-  });
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-  });
+});
